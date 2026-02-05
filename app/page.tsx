@@ -3,15 +3,14 @@
 import React, { useState, useEffect } from 'react';
 
 export default function NoFapTracker() {
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [longestStreak, setLongestStreak] = useState(0);
-  const [totalDays, setTotalDays] = useState(0);
-  const [lastCheckIn, setLastCheckIn] = useState(null);
-  const [showCelebration, setShowCelebration] = useState(false);
-  const [checkInHistory, setCheckInHistory] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentStreak, setCurrentStreak] = useState<number>(0);
+  const [longestStreak, setLongestStreak] = useState<number>(0);
+  const [totalDays, setTotalDays] = useState<number>(0);
+  const [lastCheckIn, setLastCheckIn] = useState<string | null>(null);
+  const [showCelebration, setShowCelebration] = useState<boolean>(false);
+  const [checkInHistory, setCheckInHistory] = useState<Array<{ date: string; streak: number }>>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     loadProgress();
   }, []);
@@ -40,7 +39,6 @@ export default function NoFapTracker() {
   const handleCheckIn = () => {
     const today = new Date().toDateString();
     
-    // Prevent multiple check-ins on the same day
     if (lastCheckIn === today) {
       alert('You already checked in today! Come back tomorrow.');
       return;
@@ -50,17 +48,14 @@ export default function NoFapTracker() {
     const newTotal = totalDays + 1;
     const newLongest = Math.max(newStreak, longestStreak);
     
-    // Update state
     setCurrentStreak(newStreak);
     setTotalDays(newTotal);
     setLongestStreak(newLongest);
     setLastCheckIn(today);
 
-    // Add to history
     const newHistory = [...checkInHistory, { date: today, streak: newStreak }].slice(-30);
     setCheckInHistory(newHistory);
 
-    // Save to localStorage
     try {
       localStorage.setItem('current-streak', newStreak.toString());
       localStorage.setItem('longest-streak', newLongest.toString());
@@ -71,7 +66,6 @@ export default function NoFapTracker() {
       console.error('Storage error:', error);
     }
 
-    // Show celebration
     setShowCelebration(true);
     setTimeout(() => setShowCelebration(false), 3000);
   };
@@ -104,7 +98,6 @@ export default function NoFapTracker() {
   const canCheckInToday = lastCheckIn !== new Date().toDateString();
   const milestone = getMilestone();
 
-  // Show loading state until data is loaded
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
@@ -117,7 +110,6 @@ export default function NoFapTracker() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
         
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 flex items-center justify-center gap-3">
             <span className="text-4xl">🎯</span>
@@ -126,7 +118,6 @@ export default function NoFapTracker() {
           <p className="text-purple-200">Your journey to self-mastery</p>
         </div>
 
-        {/* Celebration */}
         {showCelebration && (
           <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
             <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 animate-bounce border-4 border-green-400">
@@ -137,7 +128,6 @@ export default function NoFapTracker() {
           </div>
         )}
 
-        {/* Main Streak Display */}
         <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 mb-6 border border-white/20 text-center">
           <div className={`inline-block px-6 py-2 rounded-full bg-gradient-to-r ${milestone.color} mb-4`}>
             <span className="text-2xl mr-2">{milestone.icon}</span>
@@ -165,7 +155,6 @@ export default function NoFapTracker() {
           </button>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-3 mb-2">
@@ -195,7 +184,6 @@ export default function NoFapTracker() {
           </div>
         </div>
 
-        {/* Milestones */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 mb-6">
           <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
             <span className="text-2xl">📈</span>
@@ -234,7 +222,6 @@ export default function NoFapTracker() {
           </div>
         </div>
 
-        {/* Reset Button */}
         <div className="text-center">
           <button
             onClick={handleReset}
@@ -244,7 +231,6 @@ export default function NoFapTracker() {
           </button>
         </div>
 
-        {/* Footer */}
         <div className="text-center mt-8 text-purple-300 text-sm">
           <p>💪 You're stronger than your urges</p>
           <p className="mt-2 text-xs">Your progress is saved in your browser</p>
