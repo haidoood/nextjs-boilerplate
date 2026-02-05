@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, TrendingUp, Award, Target, Flame, CheckCircle } from 'lucide-react';
 
 export default function NoFapTracker() {
   const [currentStreak, setCurrentStreak] = useState(0);
@@ -121,7 +120,7 @@ export default function NoFapTracker() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 flex items-center justify-center gap-3">
-            <Target className="w-10 h-10 text-purple-400" />
+            <span className="text-4xl">🎯</span>
             NoFap Tracker
           </h1>
           <p className="text-purple-200">Your journey to self-mastery</p>
@@ -161,8 +160,8 @@ export default function NoFapTracker() {
                 : 'bg-gray-600 text-gray-400 cursor-not-allowed'
             }`}
           >
-            <CheckCircle className="w-6 h-6" />
-            {canCheckInToday ? "I Didn't Fap Today ✓" : 'Already Checked In Today'}
+            <span className="text-2xl">✓</span>
+            {canCheckInToday ? "I Didn't Fap Today" : 'Already Checked In Today'}
           </button>
         </div>
 
@@ -170,7 +169,7 @@ export default function NoFapTracker() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-3 mb-2">
-              <Flame className="w-6 h-6 text-orange-400" />
+              <span className="text-2xl">🔥</span>
               <h3 className="text-purple-200 font-medium">Current Streak</h3>
             </div>
             <div className="text-4xl font-bold text-white">{currentStreak}</div>
@@ -179,7 +178,7 @@ export default function NoFapTracker() {
 
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-3 mb-2">
-              <Award className="w-6 h-6 text-yellow-400" />
+              <span className="text-2xl">🏅</span>
               <h3 className="text-purple-200 font-medium">Longest Streak</h3>
             </div>
             <div className="text-4xl font-bold text-white">{longestStreak}</div>
@@ -188,7 +187,7 @@ export default function NoFapTracker() {
 
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-3 mb-2">
-              <Calendar className="w-6 h-6 text-blue-400" />
+              <span className="text-2xl">📅</span>
               <h3 className="text-purple-200 font-medium">Total Clean Days</h3>
             </div>
             <div className="text-4xl font-bold text-white">{totalDays}</div>
@@ -199,7 +198,7 @@ export default function NoFapTracker() {
         {/* Milestones */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 mb-6">
           <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-purple-400" />
+            <span className="text-2xl">📈</span>
             Next Milestones
           </h3>
           <div className="space-y-3">
